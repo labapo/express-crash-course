@@ -34,7 +34,10 @@ router.post('/', (req, res)=> {
         return res.status(400).json({msg: "Please include a name and email"});
     } 
     members.push(newMember);
-    res.json(members);
+    //res.json(members); //commenting out because this returns the json results.
+    //when we are using this on a form, we don't want to show the json results. we need to redirect 
+    //res.redirect('/'); //same page. Added the member and redirected to the same page
+    res.json(members);//putting this back in for the API to work
 });
 
 //update member
@@ -58,12 +61,12 @@ router.put('/:id', (req, res) => {// shorten the path because?not quite sure yet
 });
 
 //Delete Member
-router.get('/:id', (req, res) => {// shorten the path because?not quite sure yet
+router.delete('/:id', (req, res) => {// shorten the path because?not quite sure yet
     // use sum method to state that there is no member with that ID
     const found = members.some(member=> member.id=== parseInt(req.params.id)); //will return true or false 
     if (found) {
         //res.send(req.params.id); // reques.params.(you can get any paramater)
-        res.json(members.filter(member => member.id === parseInt(req.params.id)));//filter out based upon condition
+        res.json({ msg: "Member deleted", members: members.filter(member => member.id !== parseInt(req.params.id))});//filter out based upon condition
     //                                 ^this came from the object array from Members.js. Its one of the key value pairs. it's a number and not a string
     //                                                     ^^This turns the id into a string. We will wrap it in parse int because both have to be the same type. parse it out to be a number?
     } else {
