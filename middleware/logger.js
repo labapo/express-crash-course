@@ -1,3 +1,4 @@
+//Create middleware function
 // Middleware takes in a request, response, and next. Next should always be last, so you can move to the next middleware funnction
 const moment = require('moment');//because its something we installed
 const logger = (req, res, next) => {

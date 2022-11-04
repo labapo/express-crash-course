@@ -6,11 +6,14 @@ const logger = require('./middleware/logger'); //it's going to a differnt file o
 
 const app = express();
 
-//Create middleware function
-
 
 //initialize middleware
 //app.use(logger); 
+
+//initialize middleware again for body parser middleware
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+
 
 //set static folder - make public folder static so we can use it. Creates a static server/folder
 app.use(express.static(path.join(__dirname, 'public')));
